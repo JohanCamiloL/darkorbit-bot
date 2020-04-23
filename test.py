@@ -54,16 +54,39 @@ def fullScreenGame():
 def confPetToCollectBoxes():
     if (getImagePositionWithHighAccuracy('Repair_PET.PNG') != None):
         getImageAndClick('Repair_PET.PNG', 0, 30)
-    elif (getImagePositionWithHighAccuracy('Button_Stop_PET.PNG') == None):        
+    elif (getImagePositionWithHighAccuracy('Button_Stop_PET.PNG') == None):
         getImageAndClick('Button_Play_PET.PNG')
         getImageAndClick('Pet_Menu.PNG')
-        getImageAndClick('Auto_recolector.png')        
+        if (getImagePosition('Auto_recolector.png') == None):
+            revivirOnPortal()
+        getImageAndClick('Auto_recolector.png')
 
 
-confPetToCollectBoxes()
+def repairPet():
+    getImageAndClick('Repair_PET.PNG', 0, 30)
+    pyautogui.moveTo(100, 100, 1)
+
+
+def revivirOnPortal():
+    getImageAndClick('Revivir_Portal.PNG')
+    getImageAndClick('Boton_Revivir.PNG')
+
+
+def newConnection():
+    getImageAndClick('Nueva_Conexion.PNG')
+    time.sleep(5)
+
+
 while(True):
-    if (getImagePositionWithHighAccuracy('Repair_PET.PNG') != None):
-        getImageAndClick('Repair_PET.PNG', 0, 30)
-        pyautogui.moveTo(100, 100, 1)
+    if (getImagePositionWithHighAccuracy('Nueva_Conexion.PNG') != None):
+        newConnection()
         confPetToCollectBoxes()
+    elif (getImagePosition('Revivir_Portal.PNG') != None):
+        revivirOnPortal()
+    elif (getImagePositionWithHighAccuracy('Repair_PET.PNG') != None):
+        repairPet()
+        confPetToCollectBoxes()
+    elif (getImagePositionWithHighAccuracy('Button_Play_PET.PNG')):
+        confPetToCollectBoxes()
+
     moveRandonOnMap()
