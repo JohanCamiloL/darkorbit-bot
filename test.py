@@ -31,14 +31,16 @@ fullMap = getImagePositionAndSize('Full_Map.PNG')
 
 def moveRandonOnMap():
     randomX = randint(fullMap.left + 3, fullMap.left + fullMap.width - 3)
-    randomY = randint(fullMap.top + 3, fullMap.top + fullMap.height - 3)
+    randomY = randint(fullMap.top + 3, fullMap.top + 140)
+    #randomY = randint(fullMap.top + 3, fullMap.top + fullMap.height - 3)
     pyautogui.moveTo(randomX, randomY, 1)
-    pyautogui.click(randomX, randomY)
+    pyautogui.click(randomX, randomY, 1)
     time.sleep(10)
 
 
 def attackNpc(npcPos):
-    pyautogui.click(npcPos.x + 60, npcPos.y - 60)
+    pyautogui.click(npcPos.x, npcPos.y)
+    pyautogui.click(npcPos.x + 70, npcPos.y - 70)
     time.sleep(0.5)
     pyautogui.press('ctrl')
 
@@ -58,8 +60,12 @@ def confPetToCollectBoxes():
         getImageAndClick('Button_Play_PET.PNG')
         getImageAndClick('Pet_Menu.PNG')
         if (getImagePosition('Auto_recolector.png') == None):
-            revivirOnPortal()
-        getImageAndClick('Auto_recolector.png')
+            if (getImagePosition('Revivir_Lugar.PNG') != None):
+                reviveOnPlace()
+            elif (getImagePosition('Nueva_Conexion.PNG') != None):
+                newConnection()
+        else:
+            getImageAndClick('Auto_recolector.png')
 
 
 def repairPet():
@@ -72,21 +78,44 @@ def revivirOnPortal():
     getImageAndClick('Boton_Revivir.PNG')
 
 
+def reviveOnPlace():
+    getImageAndClick('Revivir_Lugar.PNG')
+    getImageAndClick('Boton_Revivir.PNG')
+    time.sleep(2)
+
+
 def newConnection():
     getImageAndClick('Nueva_Conexion.PNG')
     time.sleep(5)
 
 
-while(True):
-    if (getImagePositionWithHighAccuracy('Nueva_Conexion.PNG') != None):
-        newConnection()
-        confPetToCollectBoxes()
-    elif (getImagePosition('Revivir_Portal.PNG') != None):
-        revivirOnPortal()
-    elif (getImagePositionWithHighAccuracy('Repair_PET.PNG') != None):
-        repairPet()
-        confPetToCollectBoxes()
-    elif (getImagePositionWithHighAccuracy('Button_Play_PET.PNG')):
-        confPetToCollectBoxes()
+def collectBonusBoxes():
+    while (True):
+        if (getImagePositionWithHighAccuracy('Nueva_Conexion.PNG') != None):
+            newConnection()
+            confPetToCollectBoxes()
+        elif (getImagePosition('Revivir_Portal.PNG') != None):
+            reviveOnPlace()
+        elif (getImagePositionWithHighAccuracy('Repair_PET.PNG') != None):
+            repairPet()
+            confPetToCollectBoxes()
+        elif (getImagePositionWithHighAccuracy('Button_Play_PET.PNG')):
+            confPetToCollectBoxes()
 
-    moveRandonOnMap()
+        moveRandonOnMap()
+
+
+def killNpcs():
+    while (True):
+        npcPosition = getImagePositionOnRegion(
+            'NPC.PNG', (156, 267, 1319, 634))
+        if (npcPosition != None):
+            attackNpc(npcPosition)
+            while (True):
+                if (getImagePosition('NPC_Selected.PNG') == None):
+                    break
+        else:
+            moveRandonOnMap()
+
+
+collectBonusBoxes()
