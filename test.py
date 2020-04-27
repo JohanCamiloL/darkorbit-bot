@@ -31,13 +31,8 @@ fullMap = getImagePositionAndSize('Full_Map.PNG')
 
 def moveRandonOnMap():
     randomX = randint(fullMap.left + 3, fullMap.left + fullMap.width - 3)
-<<<<<<< HEAD
-    randomY = randint(fullMap.top + 3, fullMap.top + 140)
-    #randomY = randint(fullMap.top + 3, fullMap.top + fullMap.height - 3)
-=======
     #randomY = randint(fullMap.top + 3, fullMap.top + fullMap.height - 3)
     randomY = randint(fullMap.top + 3, fullMap.top + 140)
->>>>>>> 34a10c77e2a4882d849e970181ddddba75a03609
     pyautogui.moveTo(randomX, randomY, 1)
     pyautogui.click(randomX, randomY, 1)
     time.sleep(10)
@@ -64,21 +59,15 @@ def confPetToCollectBoxes():
     elif (getImagePositionWithHighAccuracy('Button_Stop_PET.PNG') == None):
         getImageAndClick('Button_Play_PET.PNG')
         getImageAndClick('Pet_Menu.PNG')
-<<<<<<< HEAD
         if (getImagePosition('Auto_recolector.png') == None):
-=======
         if (getImagePosition('Auto_recolector.PNG') == None):
->>>>>>> 34a10c77e2a4882d849e970181ddddba75a03609
             if (getImagePosition('Revivir_Lugar.PNG') != None):
                 reviveOnPlace()
             elif (getImagePosition('Nueva_Conexion.PNG') != None):
                 newConnection()
         else:
-<<<<<<< HEAD
             getImageAndClick('Auto_recolector.png')
-=======
             getImageAndClick('Auto_recolector.PNG')
->>>>>>> 34a10c77e2a4882d849e970181ddddba75a03609
 
 
 def repairPet():
@@ -102,7 +91,7 @@ def newConnection():
     time.sleep(5)
 
 
-<<<<<<< HEAD
+
 def collectBonusBoxes():
     while (True):
         if (getImagePositionWithHighAccuracy('Nueva_Conexion.PNG') != None):
