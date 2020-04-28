@@ -59,8 +59,7 @@ def confPetToCollectBoxes():
     elif (getImagePositionWithHighAccuracy('Button_Stop_PET.PNG') == None):
         getImageAndClick('Button_Play_PET.PNG')
         getImageAndClick('Pet_Menu.PNG')
-        if (getImagePosition('Auto_recolector.png') == None):
-        if (getImagePosition('Auto_recolector.PNG') == None):
+        if (getImagePosition('Auto_recolector.png') == None):        
             if (getImagePosition('Revivir_Lugar.PNG') != None):
                 reviveOnPlace()
             elif (getImagePosition('Nueva_Conexion.PNG') != None):
